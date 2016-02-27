@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password2;
 
     /**
      * @inheritdoc
@@ -20,19 +21,23 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
+            [['email','password','password2'],'required','message'=>'{attribute}不能为空'],
+            ['email', 'email','message'=>'请输入正确的邮箱地址'],
+            ['email', 'string', 'max' => 64,'tooLong'=>'邮箱地址过长'],
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => '邮箱已经被注册'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password2', 'compare', 'compareAttribute'=>'password', 'message'=>'两次密码不一致'],
+            [['password','password2'], 'string', 'min' => 6,'max'=>16,'tooLong'=>'请输入一个低于16位的密码','tooShort'=>'为了安全，请输入一个高于6位的密码'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'email'=>'邮箱',
+            'password'=>'密码',
+            'password2'=>'重复密码',
         ];
     }
 

@@ -24,7 +24,13 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_AUTHENTIC = 1;
+    const STATUS_RESETPASSWORD = 2;
+    const STATUS_INCOMPLETE = 3;
+    const STATUS_ACTIVE = 4;
+
+    const PERMISSION_USER=1;
+    const PERMISSION_ADMIN=2;
 
     /**
      * @inheritdoc
@@ -50,8 +56,32 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['recent_datetime'],'required','on'=>'update'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['permission', 'default', 'value' => self::PERMISSION_USER],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+    public function scenarios()
+    {
+//        return [
+//            'register' => ['email', 'password','password2'],
+//            'update' => ['recent_datetime'],
+//            'reset' => ['password','password2',],
+//        ];
+        return parent::scenarios();
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'email'=>'邮箱',
+            'password'=>'密码',
+            'password2'=>'重复密码',
+            'status'=>'用户状态',
+            'permission'=>'用户权限',
+            'recent_datetime'=>'上次登录时间',
         ];
     }
 
@@ -77,9 +107,9 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByEmail($email)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
