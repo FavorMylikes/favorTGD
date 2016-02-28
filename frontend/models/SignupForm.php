@@ -10,8 +10,8 @@ use Yii;
  */
 class SignupForm extends Model
 {
-    public $username;
     public $email;
+    public $verifyCode;
     public $password;
     public $password2;
 
@@ -29,6 +29,7 @@ class SignupForm extends Model
 
             ['password2', 'compare', 'compareAttribute'=>'password', 'message'=>'两次密码不一致'],
             [['password','password2'], 'string', 'min' => 6,'max'=>16,'tooLong'=>'请输入一个低于16位的密码','tooShort'=>'为了安全，请输入一个高于6位的密码'],
+            ['verifyCode','captcha'],
         ];
     }
 
@@ -38,6 +39,7 @@ class SignupForm extends Model
             'email'=>'邮箱',
             'password'=>'密码',
             'password2'=>'重复密码',
+            'verifyCode'=>'验证码'
         ];
     }
 
@@ -53,7 +55,6 @@ class SignupForm extends Model
         }
         
         $user = new User();
-        $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
