@@ -94,7 +94,7 @@ class Alert extends \yii\bootstrap\Alert
     {
         $view = $this->getView();
         if ($this->delay > 0) {
-            $js = 'jQuery("#li-alert' . $this->order . '").fadeTo(' . $this->delay*$this->order . ', 0.00, function() {
+            $js = 'jQuery("#li-alert' . $this->order . '").delay(' . $this->delay*$this->order .').fadeTo(400, 0.00, function() {
 				$(this).slideUp("slow", function() {
 					$(this).remove();
 				});

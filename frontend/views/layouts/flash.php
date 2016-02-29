@@ -8,5 +8,5 @@ use \common\widgets\FlashMessages;
 $session=Yii::$app->getSession();
 $session->addFlash('danger','aa');
 $session->addFlash('danger','bb');
-echo FlashMessages::widget(['class'=>'flashes','delay'=>1000,'options'=>['style'=>'list-style-type:none;padding-right: 21px;margin-right: 21px;overflow: hidden']]);
+echo FlashMessages::widget(['class'=>'flashes','delay'=>1500,'options'=>['style'=>'list-style-type:none;padding-right: 21px;margin-right: 21px;overflow: hidden']]);
 ?>

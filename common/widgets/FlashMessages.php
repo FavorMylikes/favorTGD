@@ -38,9 +38,9 @@ class FlashMessages extends Widget
         parent::run();
         $session = \Yii::$app->session;
         $flashes = $session->getAllFlashes();
+        $order=1;
         foreach ($flashes as $type => $data) {
             $data = (array) $data;
-            $order=1;
             foreach ($data as $i => $message) {
                 /* initialize css class for each alert box */
                 /* assign unique id to each alert box */
