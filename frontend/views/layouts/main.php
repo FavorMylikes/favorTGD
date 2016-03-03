@@ -4,10 +4,8 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use frontend\assets\AppAsset;
 //use common\widgets\Alert;
 
-AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

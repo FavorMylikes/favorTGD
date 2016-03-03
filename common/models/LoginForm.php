@@ -9,7 +9,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
 
@@ -23,13 +23,24 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required','message'=>'请填写{attribute}'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['password', 'validatePassword','message'=>'用户名或密码不正确'],
+            ['email', 'email','message'=>'用户名或密码不正确'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'email'=>'邮箱',
+            'password'=>'密码',
+            'rememberMe'=>'给我记着',
+        ];
+    }
+
 
     /**
      * Validates the password.

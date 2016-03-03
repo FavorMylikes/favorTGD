@@ -5,6 +5,16 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+//        custom the lessc command
+//        'assetManager' => [
+//            'converter' => [
+//                'class' => 'yii\web\AssetConverter',
+//                'commands' => [
+//                    'less' => ['css', 'lessc {from} {to} --no-color'],
+//                ],
+//            ],
+//        ],
     ],
-    'name'=>'favorTGD'
+    'name' => 'FavorTGD',
+
 ];

@@ -21,7 +21,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['email','password','password2'],'required','message'=>'{attribute}不能为空'],
+            [['email','password','password2'],'required','message'=>'请填写{attribute}'],
             ['email', 'email','message'=>'请输入正确的邮箱地址'],
             ['email', 'string', 'max' => 64,'tooLong'=>'邮箱地址过长'],
             ['email', 'filter', 'filter' => 'trim'],
@@ -29,7 +29,7 @@ class SignupForm extends Model
 
             ['password2', 'compare', 'compareAttribute'=>'password', 'message'=>'两次密码不一致'],
             [['password','password2'], 'string', 'min' => 6,'max'=>16,'tooLong'=>'请输入一个低于16位的密码','tooShort'=>'为了安全，请输入一个高于6位的密码'],
-            ['verifyCode','captcha'],
+            ['verifyCode','captcha','message'=>'验证码不正确'],
         ];
     }
 

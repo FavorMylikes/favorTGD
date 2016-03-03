@@ -7,6 +7,8 @@
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use frontend\assets\AppAsset;
+AppAsset::register($this);
 NavBar::begin([
     'brandLabel' => Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
@@ -18,6 +20,7 @@ $menuItems = [
     ['label' => '主页', 'url' => ['/site/index']],
     ['label' => '关于', 'url' => ['/site/about']],
     ['label' => '联系我们', 'url' => ['/site/contact']],
+
 ];
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
